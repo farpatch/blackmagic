@@ -28,6 +28,9 @@
 #include "gdb_packet.h"
 #include "morse.h"
 #include "command.h"
+#ifdef ENABLE_RTT
+#include "rtt.h"
+#endif
 
 #define BUF_SIZE 1024U
 static char pbuf[BUF_SIZE + 1U];

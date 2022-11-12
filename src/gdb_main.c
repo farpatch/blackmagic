@@ -360,6 +360,7 @@ static void exec_q_rcmd(const char *packet, const size_t length)
 	else {
 		const char *const response = "Failed\n";
 		const size_t length = strlen(response);
+		char pbuf[length * 2 + 1];
 		gdb_putpacket(hexify(pbuf, response, length), 2 * length);
 	}
 }
@@ -687,7 +688,8 @@ void gdb_poll_target(void)
 	}
 
 	/* poll target */
-	if (!(reason = target_halt_poll(cur_target, &watch)))
+	reason = target_halt_poll(cur_target, &watch);
+	if (!reason)
 		return;
 
 	/* switch polling off */
